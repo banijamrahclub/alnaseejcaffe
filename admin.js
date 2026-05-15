@@ -1,5 +1,21 @@
+function checkPass() {
+  let pass = sessionStorage.getItem("adminPass");
+  if (!pass) {
+    pass = prompt("أدخل كلمة المرور لدخول لوحة الإدارة:");
+    if (pass === "1212") {
+      sessionStorage.setItem("adminPass", "1212");
+    } else {
+      alert("كلمة مرور خاطئة!");
+      window.location.href = "/";
+    }
+  }
+}
+checkPass();
+
 async function api(url, opts = {}) {
   const headers = opts.headers || {};
+  const pass = sessionStorage.getItem("adminPass");
+  if (pass) headers["x-admin-pass"] = pass;
   if (opts.body && !headers["Content-Type"]) headers["Content-Type"] = "application/json";
   return fetch(url, { ...opts, headers });
 }

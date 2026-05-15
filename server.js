@@ -9,11 +9,14 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 const PORT = process.env.PORT || 3000;
-// ===== Admin Key Removed =====
+const ADMIN_PASSWORD = "1212";
 
 function requireAdmin(req, res, next) {
-  // تم إزالة التحقق من المفتاح بناءً على طلب المستخدم
-  return next();
+  const pass = req.headers["x-admin-pass"];
+  if (pass === ADMIN_PASSWORD) {
+    return next();
+  }
+  res.status(401).json({ ok: false, error: "Unauthorized" });
 }
 
 
