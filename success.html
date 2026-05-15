@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>تم استلام طلبك | النسيج كافيه</title>
+  <link rel="icon"
+    href="https://raw.githubusercontent.com/banijamrahclub/caffe/207bdaf96921de7784c59fb2c08521d167fea481/alnaseej%20logo1.png"
+    type="image/png">
+  <link rel="apple-touch-icon"
+    href="https://raw.githubusercontent.com/banijamrahclub/caffe/207bdaf96921de7784c59fb2c08521d167fea481/alnaseej%20logo1.png">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .okBox {
+      border: 1px solid rgba(255, 255, 255, .10);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+      border-radius: 18px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, .45);
+      padding: 24px;
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .okTitle {
+      font-weight: 1000;
+      font-size: 1.4rem;
+      margin: 0 0 8px;
+      color: var(--teal);
+    }
+
+    .okSub {
+      color: rgba(255, 255, 255, .70);
+      margin: 0 0 20px
+    }
+
+    .paymentSection {
+      margin-top: 25px;
+      padding-top: 25px;
+      border-top: 1px dashed var(--stroke);
+    }
+
+    .payModal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+    }
+
+    .payModal.show {
+      display: flex;
+      animation: fadeIn .3s ease;
+    }
+
+    .payCard {
+      background: #14181e;
+      border: 1px solid var(--teal);
+      border-radius: 24px;
+      padding: 25px;
+      width: min(400px, 100%);
+      position: relative;
+      text-align: center;
+      animation: slideUp .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .qrImg {
+      width: 200px;
+      height: 200px;
+      margin: 15px auto;
+      background: white;
+      padding: 10px;
+      border-radius: 12px;
+    }
+
+    .copyBox {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px 15px;
+      border-radius: 12px;
+      margin-top: 10px;
+      border: 1px solid var(--stroke);
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .copyBox:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--teal);
+    }
+
+    .copyLabel {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: block;
+      text-align: right;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img class="logo"
+        src="https://raw.githubusercontent.com/banijamrahclub/caffe/207bdaf96921de7784c59fb2c08521d167fea481/alnaseej%20logo1.png"
+        alt="النسيج كافيه">
+      <div class="brandText">
+        <div class="brandName">النسيج كافيه</div>
+        <div class="brandSub">تم استلام الطلب</div>
+      </div>
+    </div>
+    <div class="topActions">
+      <a class="btn btnGhost" href="/">طلب جديد</a>
+    </div>
+  </header>
+
+  <main class="container" style="max-width: 600px;">
+    <div class="okBox">
+      <h1 class="okTitle">✅ تم استلام طلبك بنجاح</h1>
+      <p class="okSub">نشكرك على اختيارك النسيج كافيه. سيتم تجهيز طلبك بأسرع وقت.</p>
+
+      <div class="paymentSection">
+        <button id="btnPay" class="btn btnPrimary btnBlock" style="padding: 16px; font-size: 1.2rem;">💳 ادفع الآن
+          (BenefitPay)</button>
+        <p style="font-size: 0.85rem; color: var(--muted); margin-top: 10px;">أو يمكنك الدفع للهاتف عند الاستلام</p>
+      </div>
+    </div>
+  </main>
+
+  <div id="payModal" class="payModal">
+    <div class="payCard">
+      <button onclick="closePay()"
+        style="position: absolute; top: 15px; left: 15px; background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem;">✕</button>
+      <h2 style="margin-bottom: 5px;">الدفع عبر بنفت بيت</h2>
+      <p style="color: var(--muted); font-size: 0.9rem;">امسح الكود أو استخدم الأرقام أدناه</p>
+
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=NSJ_PAYMENT" class="qrImg" alt="QR Code">
+
+      <span class="copyLabel">رقم الهاتف:</span>
+      <div class="copyBox" onclick="copyText('39402050')">
+        <span style="font-weight: 1000;">39402050</span>
+        <span style="color: var(--teal); font-size: 0.8rem;">نسخ 📋</span>
+      </div>
+
+      <span class="copyLabel">رقم الحساب (IBAN):</span>
+      <div class="copyBox" onclick="copyText('BH12345678901234567890')">
+        <span style="font-size: 0.9rem; font-family: monospace;">BH12345678901234...</span>
+        <span style="color: var(--teal); font-size: 0.8rem;">نسخ 📋</span>
+      </div>
+
+      <button class="btn btnPrimary btnBlock" style="margin-top: 20px;" onclick="closePay()">تم الدفع</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"
+    style="position: fixed; left: 50%; top: 40px; bottom: auto; transform: translateX(-50%) translateY(-20px); transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); opacity: 0; pointer-events: none; z-index: 10000; background: var(--teal); color: white; padding: 12px 24px; border-radius: 12px; font-weight: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+  </div>
+
+  <script>
+    const payModal = document.getElementById("payModal");
+    const btnPay = document.getElementById("btnPay");
+    const toastEl = document.getElementById("toast");
+
+    if (btnPay) btnPay.onclick = () => payModal.classList.add("show");
+    window.closePay = () => payModal.classList.remove("show");
+
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.style.opacity = "1";
+      toastEl.style.transform = "translateX(-50%) translateY(0)";
+      setTimeout(() => {
+        toastEl.style.opacity = "0";
+        toastEl.style.transform = "translateX(-50%) translateY(-20px)";
+      }, 2500);
+    }
+
+    async function copyText(txt) {
+      try {
+        const el = document.createElement('textarea');
+        el.value = txt;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        toast("تم النسخ بنجاح ✅");
+      } catch (err) {
+        toast("فشل النسخ");
+      }
+    }
+
+    window.onclick = (e) => {
+      if (e.target === payModal) closePay();
+    };
+  </script>
+</body>
+
+</html>

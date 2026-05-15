@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>النسيج كافيه</title>
+  <link rel="icon"
+    href="https://raw.githubusercontent.com/banijamrahclub/caffe/207bdaf96921de7784c59fb2c08521d167fea481/alnaseej%20logo1.png"
+    type="image/png">
+  <link rel="apple-touch-icon"
+    href="https://raw.githubusercontent.com/banijamrahclub/caffe/207bdaf96921de7784c59fb2c08521d167fea481/alnaseej%20logo1.png">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img class="logo"
+        src="https://raw.githubusercontent.com/banijamrahclub/caffe/207bdaf96921de7784c59fb2c08521d167fea481/alnaseej%20logo1.png"
+        alt="النسيج كافيه">
+      <div class="brandText">
+        <div class="brandName">النسيج كافيه</div>
+        <div class="brandSub">طلب طعام</div>
+      </div>
+    </div>
+
+    <button id="btnKnowUs" class="btn btnGhost">تعرف علينا</button>
+
+    <div class="topActions">
+      <button id="btnOpenCart" class="btn btnPrimary">
+        السلة <span id="cartCount" class="badge">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="closedMessage" style="display:none;">
+      <div
+        style="text-align:center; padding:80px 20px; background:rgba(255,107,107,0.05); border-radius:30px; border:2px dashed rgba(255,107,107,0.2); margin:40px auto; max-width:600px;">
+        <div style="font-size:4rem; margin-bottom:20px;">🌙</div>
+        <h1 style="color:#ff6b6b; font-size:2rem; margin-bottom:20px; font-weight:1000;">نأسف، الكافيه مغلق حالياً</h1>
+        <p style="font-size:1.4rem; color:var(--text); line-height:1.8;">
+          الرجاء زيارتنا في أوقات العمل الرسمية:<br>
+          <b style="color:var(--teal)">من 10 صباحاً إلى 10 مساءً</b>
+        </p>
+        <div style="margin-top:30px; color:var(--muted);">نتطلع لخدمتكم قريباً ✨</div>
+      </div>
+    </div>
+
+    <div id="mainContent">
+      <section class="hero">
+        <h1>اختر الأقسام التي تود تصفحها</h1>
+        <div id="categoryTabs" class="tabs">
+          <!-- سيتم توليد التبويبات هنا برمجياً -->
+        </div>
+        <div class="heroRow">
+          <input id="searchInput" class="input" type="search" placeholder="ابحث عن صنف…" />
+        </div>
+      </section>
+
+      <section class="grid">
+        <section class="menu">
+          <div class="menuHeader">
+            <h2 id="currentCategoryTitle">المنيو</h2>
+            <div class="muted">الأسعار بالدينار البحريني (BHD)</div>
+          </div>
+          <div id="menuList" class="menuList">جاري تحميل المنيو...</div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <!-- CART DRAWER -->
+  <div id="cartDrawer" class="drawerOverlay" aria-hidden="true">
+    <div class="drawer">
+      <div class="drawerTop">
+        <div>
+          <div class="drawerTitle">سلتك</div>
+          <div class="drawerSub" id="cartSubtotalLine">المجموع: 0.000 د.ب</div>
+        </div>
+        <button class="iconBtn" id="btnCloseCart" aria-label="إغلاق">✕</button>
+      </div>
+
+      <div id="cartItems" class="cartItems"></div>
+
+      <div class="drawerBottom">
+        <button id="btnClearCart" class="btn btnGhost">تفريغ</button>
+        <button id="btnGoToCheckout" class="btn btnPrimary">اطلب الآن</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL -->
+  <div id="checkoutModal" class="checkoutOverlay">
+    <div class="card checkoutCard">
+      <div class="drawerTop" style="margin-bottom: 15px;">
+        <div class="cardTitle" style="margin:0">بيانات الطلب</div>
+        <button class="iconBtn" id="btnCloseCheckout">✕</button>
+      </div>
+
+      <label class="label">الاسم (مطلوب)</label>
+      <input id="nameInput" class="input" placeholder="اكتب اسمك هنا" />
+
+      <label class="label">رقم الهاتف (مطلوب)</label>
+      <input id="phoneInput" class="input" inputmode="tel" placeholder="مثال: 3xxxxxxx" />
+
+      <label class="label">رقم السيارة (اختياري)</label>
+      <input id="carInput" class="input" placeholder="مثال: 12345" />
+
+      <label class="label">ملاحظات (اختياري)</label>
+      <textarea id="noteInput" class="input textarea" rows="3" placeholder="بدون سكر… زيادة صوص…"></textarea>
+
+      <div id="hint" class="hint" style="color:#ff6b6b"></div>
+
+      <button id="btnCheckout" class="btn btnPrimary btnBlock" style="margin-top:15px">تأكيد وإرسال الطلب</button>
+    </div>
+  </div>
+
+  <!-- KNOW US MODAL -->
+  <div id="infoModal" class="checkoutOverlay" aria-hidden="true">
+    <div class="card checkoutCard" style="text-align: center; padding: 30px;">
+      <button class="iconBtn" id="btnCloseInfo" style="position: absolute; top: 15px; left: 15px;">✕</button>
+      <img
+        src="https://raw.githubusercontent.com/banijamrahclub/caffe/207bdaf96921de7784c59fb2c08521d167fea481/alnaseej%20logo1.png"
+        style="width: 80px; margin-bottom: 15px;">
+      <h2 style="margin-bottom: 20px;">تعرف علينا</h2>
+
+      <div style="display: grid; gap: 15px; margin-bottom: 25px;">
+        <a href="https://www.instagram.com/alnasijcafe/" target="_blank" class="btn btnBlock btnGhost">
+          <span>انستقرام</span> 📸
+        </a>
+        <a href="https://www.tiktok.com/@alnasijcafe" target="_blank" class="btn btnBlock btnGhost">
+          <span>تيك توك</span> 🎥
+        </a>
+        <a href="https://wa.me/97339402050" target="_blank" class="btn btnBlock btnGhost">
+          <span>واتساب (39402050)</span> 💬
+        </a>
+        <a href="https://maps.app.goo.gl/aKA8gsQVYaDrCrNZ8?g_st=ic" target="_blank" class="btn btnBlock btnGhost">
+          <span>الموقع على الخريطة</span> 📍
+        </a>
+      </div>
+
+      <div
+        style="padding: 15px; background: rgba(255,255,255,0.05); border-radius: 18px; border: 1px dashed var(--stroke);">
+        <div style="color: var(--teal); font-weight: 1000; margin-bottom: 5px;">أوقات العمل ⏰</div>
+        <div style="font-size: 1.1rem; font-weight: 800;">من 10 صباحاً إلى 10 مساءً</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- FLOATING ACTION BUTTON -->
+  <div id="floatingOrderBtn" class="floatingActions">
+    <button id="btnFloatingCheckout" class="btn btnPrimary btnFloating">
+      <span>اطلب الآن</span>
+      <span id="floatingCartCount" class="badge">0</span>
+    </button>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
