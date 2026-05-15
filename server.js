@@ -18,11 +18,11 @@ function requireAdmin(req, res, next) {
 
 
 app.use(express.json({ limit: "1mb" }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(__dirname)); // التغيير هنا ليعمل مع ملفاتك مباشرة
 
 // مسار إضافي للتأكد من فتح الصفحة الرئيسية
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 const db = new Database(path.join(__dirname, "data.sqlite"));
